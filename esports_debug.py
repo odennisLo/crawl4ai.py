@@ -192,7 +192,7 @@ async def debug_image_extraction():
                     print()
             
             # 儲存詳細結果
-            with open("/Users/dennis.lo/crawl4ai.py/esports_debug.json", "w", encoding="utf-8") as f:
+            with open("esports_debug.json", "w", encoding="utf-8") as f:
                 json.dump(js_result, f, indent=2, ensure_ascii=False)
             print(f"\n💾 詳細除錯結果已儲存至: esports_debug.json")
             

@@ -92,7 +92,7 @@ async def screenshot_test():
         print(f"✅ 螢幕截圖完成")
         if result.screenshot:
             # 儲存截圖
-            with open("/Users/dennis.lo/crawl4ai.py/screenshot.png", "wb") as f:
+            with open("screenshot.png", "wb") as f:
                 f.write(result.screenshot)
             print(f"💾 截圖已儲存至: screenshot.png")
 

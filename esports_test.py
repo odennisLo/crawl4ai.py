@@ -119,20 +119,24 @@ async def download_images_batch(images, base_folder, test_name):
     print(f"   ❌ 失敗: {len(download_results) - successful_downloads} 張")
     print(f"   📁 儲存位置: {images_folder}")
     
-    # 儲存下載報告
+    # 儲存下載報告（使用相對路徑）
     report_path = os.path.join(images_folder, "download_report.json")
+    # 取得相對於當前工作目錄的路徑
+    relative_folder_path = os.path.relpath(images_folder)
+    relative_report_path = os.path.relpath(report_path)
+    
     async with aiofiles.open(report_path, 'w', encoding='utf-8') as f:
         await f.write(json.dumps({
             'test_name': test_name,
             'timestamp': timestamp,
-            'folder_path': images_folder,
+            'folder_path': relative_folder_path,  # 使用相對路徑
             'total_images': len(download_results),
             'successful_downloads': successful_downloads,
             'failed_downloads': len(download_results) - successful_downloads,
             'download_results': download_results
         }, indent=2, ensure_ascii=False))
     
-    print(f"   📄 下載報告: {report_path}")
+    print(f"   📄 下載報告: {relative_report_path}")
     
     return images_folder, download_results
 
@@ -199,7 +203,7 @@ async def esports_news_test():
             print(f"\n📥 開始下載圖片...")
             images_folder, download_results = await download_images_batch(
                 images, 
-                "/Users/dennis.lo/crawl4ai.py", 
+                ".", 
                 "esports_news"
             )
             
@@ -246,7 +250,7 @@ async def esports_news_test():
         
         # 儲存截圖
         if result.screenshot:
-            screenshot_path = "/Users/dennis.lo/crawl4ai.py/esports_screenshot.png"
+            screenshot_path = "esports_screenshot.png"
             if isinstance(result.screenshot, str):
                 # 如果是 base64 字串，需要解碼
                 import base64
@@ -285,7 +289,7 @@ async def esports_news_test():
             'timestamp': '2025-08-14'
         }
         
-        with open("/Users/dennis.lo/crawl4ai.py/esports_result.json", "w", encoding="utf-8") as f:
+        with open("esports_result.json", "w", encoding="utf-8") as f:
             json.dump(result_data, f, indent=2, ensure_ascii=False)
         
         print(f"\n💾 完整結果已儲存至: esports_result.json")
@@ -484,7 +488,7 @@ async def esports_images_extraction_test():
                 print(f"\n📥 下載 JavaScript 擷取的圖片...")
                 js_images_folder, js_download_results = await download_images_batch(
                     images, 
-                    "/Users/dennis.lo/crawl4ai.py", 
+                    ".", 
                     "esports_js"
                 )
             
@@ -496,7 +500,7 @@ async def esports_images_extraction_test():
                     print(f"   🖼️ 背景 {i}: {bg.get('backgroundImage', 'N/A')}")
             
             # 儲存圖片資訊
-            with open("/Users/dennis.lo/crawl4ai.py/esports_images.json", "w", encoding="utf-8") as f:
+            with open("esports_images.json", "w", encoding="utf-8") as f:
                 json.dump(actual_result, f, indent=2, ensure_ascii=False)
             print(f"\n💾 圖片資訊已儲存至: esports_images.json")
         else:

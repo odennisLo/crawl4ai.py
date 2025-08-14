@@ -10,8 +10,9 @@ import subprocess
 def run_script(script_name):
     """執行指定的腳本"""
     try:
-        # 確保在正確的目錄中
-        os.chdir('/Users/dennis.lo/crawl4ai.py')
+        # 確保在正確的目錄中（使用相對路徑）
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(script_dir)
         
         # 啟動虛擬環境並執行腳本
         cmd = f"source .venv/bin/activate && python {script_name}"
@@ -76,7 +77,8 @@ def main():
             elif choice == "7":
                 print("🔍 執行安裝後檢查...")
                 try:
-                    os.chdir('/Users/dennis.lo/crawl4ai.py')
+                    script_dir = os.path.dirname(os.path.abspath(__file__))
+                    os.chdir(script_dir)
                     cmd = "source .venv/bin/activate && crawl4ai-doctor"
                     subprocess.run(cmd, shell=True, check=True)
                 except subprocess.CalledProcessError as e:
