@@ -1,0 +1,30 @@
+# Python 虛擬環境
+.venv/
+venv/
+env/
+
+# Python 快取檔案
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# 測試結果檔案
+*.json
+*.png
+*_images_*/
+
+# VS Code 設定
+.vscode/
+
+# macOS 系統檔案
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# 其他臨時檔案
+*.log
+*.tmp
+temp/
